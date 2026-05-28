@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Toby's Front End Projects — Sci-Fi Web Developer Portfolio</title>
+<meta name="description" content="Portfolio of Toby, a front-end developer crafting futuristic web experiences. View live projects and hire for your next build." />
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#05060f; --fg:#e6f1ff; --muted:#94a3b8; --dim:#475569;
+    --primary:#00e5ff; --secondary:#a855f7; --accent:#ec4899;
+    --border:rgba(0,229,255,.2); --glass:rgba(15,23,42,.55);
+    --grad:linear-gradient(135deg,#00e5ff,#a855f7,#ec4899);
+    --neon:0 0 30px rgba(0,229,255,.45);
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;overflow-x:hidden;position:relative;line-height:1.6}
+  body::before{content:"";position:fixed;inset:0;z-index:-2;background:
+    radial-gradient(circle at 15% 20%,rgba(0,229,255,.18),transparent 40%),
+    radial-gradient(circle at 85% 75%,rgba(168,85,247,.18),transparent 40%),
+    radial-gradient(circle at 50% 100%,rgba(236,72,153,.12),transparent 50%)}
+  body::after{content:"";position:fixed;inset:0;z-index:-1;background-image:
+    linear-gradient(rgba(0,229,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,229,255,.04) 1px,transparent 1px);
+    background-size:50px 50px;animation:grid 25s linear infinite}
+  @keyframes grid{from{background-position:0 0}to{background-position:50px 50px}}
+  @keyframes pulse{0%,100%{box-shadow:0 0 20px rgba(0,229,255,.3)}50%{box-shadow:0 0 50px rgba(0,229,255,.65)}}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .gradient{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .glass{background:var(--glass);border:1px solid var(--border);backdrop-filter:blur(12px);border-radius:20px}
+  .mono{font-family:'JetBrains Mono','Courier New',monospace}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:18px 6%;display:flex;justify-content:space-between;align-items:center;background:rgba(5,6,15,.6);backdrop-filter:blur(15px);border-bottom:1px solid var(--border)}
+  .logo{font-size:22px;font-weight:800;letter-spacing:2px;display:flex;align-items:center;gap:8px}
+  .logo .dot{width:10px;height:10px;border-radius:50%;background:var(--primary);box-shadow:0 0 12px var(--primary);animation:pulse 2s infinite}
+  .nav-links{display:flex;gap:32px;list-style:none}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;transition:.3s}
+  .nav-links a:hover{color:var(--primary);text-shadow:0 0 8px var(--primary)}
+  .nav-cta{padding:10px 20px;background:var(--primary);color:#000;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;transition:.3s}
+  .nav-cta:hover{transform:scale(1.05);box-shadow:var(--neon)}
+  @media (max-width:768px){.nav-links{display:none}}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 6% 60px;text-align:center;position:relative}
+  .badge{padding:8px 22px;border:1px solid rgba(0,229,255,.4);border-radius:50px;background:rgba(0,229,255,.05);font-size:11px;letter-spacing:3px;color:var(--primary);margin-bottom:30px;animation:pulse 2.5s infinite}
+  .hero h1{font-size:clamp(42px,8vw,96px);font-weight:900;line-height:1.05;margin-bottom:24px;letter-spacing:-2px}
+  .hero p.sub{font-size:clamp(16px,2vw,20px);color:var(--muted);max-width:640px;margin-bottom:40px}
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:60px}
+  .btn{padding:14px 32px;border-radius:12px;font-weight:700;font-size:15px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:.3s;border:none;cursor:pointer}
+  .btn-primary{background:var(--grad);color:#fff;box-shadow:var(--neon)}
+  .btn-primary:hover{transform:translateY(-2px) scale(1.02)}
+  .btn-ghost{border:1px solid rgba(0,229,255,.4);color:var(--fg);background:transparent}
+  .btn-ghost:hover{background:rgba(0,229,255,.1)}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;width:100%;max-width:700px}
+  .stat{padding:24px 16px;text-align:center}
+  .stat .n{font-size:34px;font-weight:800}
+  .stat .l{font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:6px}
+
+  /* SECTIONS */
+  section{padding:100px 6%;position:relative}
+  .section-head{text-align:center;margin-bottom:60px}
+  .section-tag{font-size:11px;letter-spacing:3px;color:var(--primary);text-transform:uppercase;margin-bottom:12px}
+  .section-head h2{font-size:clamp(32px,5vw,56px);font-weight:800;letter-spacing:-1px}
+  .section-head p{color:var(--muted);max-width:600px;margin:16px auto 0}
+
+  /* PROJECTS */
+  .projects{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
+  .project{padding:32px;position:relative;overflow:hidden;transition:.4s}
+  .project::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
+  .project:hover{transform:translateY(-6px);border-color:var(--primary);box-shadow:0 20px 50px -20px rgba(0,229,255,.4)}
+  .project .tag{display:inline-block;padding:5px 14px;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.3);border-radius:30px;font-size:10px;letter-spacing:2px;color:var(--primary);text-transform:uppercase;margin-bottom:16px}
+  .project h3{font-size:24px;font-weight:800;margin-bottom:10px}
+  .project p{color:var(--muted);font-size:15px;margin-bottom:18px}
+  .tech{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  .tech span{padding:4px 10px;background:rgba(15,23,42,.8);border-radius:6px;font-size:11px;color:var(--muted);font-family:monospace}
+  .project a.live{color:var(--primary);text-decoration:none;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+  .project a.live:hover{text-shadow:0 0 8px var(--primary)}
+
+  /* ABOUT */
+  .about-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+  @media (max-width:768px){.about-grid{grid-template-columns:1fr}}
+  .about h2{font-size:clamp(28px,4vw,44px);font-weight:800;margin-bottom:20px;line-height:1.1}
+  .about p{color:var(--muted);margin-bottom:20px}
+  .about ul{list-style:none;display:grid;gap:10px}
+  .about li{display:flex;align-items:center;gap:10px;font-size:14px}
+  .about li::before{content:"▸";color:var(--primary)}
+  .terminal{padding:24px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.8}
+  .terminal .dots{display:flex;gap:6px;margin-bottom:14px}
+  .terminal .dots span{width:12px;height:12px;border-radius:50%}
+  .terminal .dots span:nth-child(1){background:#ef4444}
+  .terminal .dots span:nth-child(2){background:#eab308}
+  .terminal .dots span:nth-child(3){background:#22c55e}
+  .terminal .k{color:var(--primary)}
+  .terminal .s{color:var(--accent)}
+  .terminal .g{color:#4ade80}
+
+  /* CONTACT */
+  .contact-card{max-width:720px;margin:0 auto;padding:50px 30px;text-align:center;position:relative;overflow:hidden}
+  .contact-card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(168,85,247,.08),rgba(236,72,153,.08));z-index:-1}
+  .contact-card h2{font-size:clamp(28px,4vw,44px);font-weight:800;margin-bottom:14px}
+  .contact-card p{color:var(--muted);max-width:480px;margin:0 auto 30px}
+  form{display:grid;gap:14px;max-width:520px;margin:0 auto;text-align:left}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:540px){.row{grid-template-columns:1fr}}
+  input,textarea{padding:14px 18px;background:rgba(5,6,15,.6);border:1px solid rgba(0,229,255,.3);border-radius:10px;color:var(--fg);font-family:'JetBrains Mono',monospace;font-size:14px;outline:none;transition:.3s;width:100%}
+  input:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 20px rgba(0,229,255,.25)}
+  textarea{resize:vertical;min-height:110px;font-family:'Segoe UI',sans-serif}
+  button[type=submit]{margin-top:6px;background:var(--grad);color:#fff;padding:16px;font-size:15px;font-weight:700;border-radius:12px;border:none;cursor:pointer;box-shadow:var(--neon);transition:.3s}
+  button[type=submit]:hover{transform:scale(1.02)}
+  .email-fallback{margin-top:20px;font-family:monospace;font-size:13px;color:var(--primary);text-decoration:none;display:inline-flex;gap:8px;align-items:center}
+  .email-fallback:hover{text-shadow:0 0 8px var(--primary)}
+  .status{margin-top:14px;font-family:monospace;font-size:12px;text-align:center}
+  .status.sent{color:#4ade80}
+
+  footer{padding:30px 6%;text-align:center;border-top:1px solid var(--border);color:var(--dim);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  footer .status-pill{font-family:monospace;font-size:12px}
+  footer .status-pill span{color:#4ade80}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><span class="dot"></span> <span class="gradient">Toby.dev</span></div>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#hire">Hire Me</a></li>
+  </ul>
+  <a class="nav-cta" href="mailto:oladegatobiloba@gmail.com">✉ Contact</a>
+</nav>
+
+<header class="hero" id="home">
+  <div class="badge">◉ SYSTEM ONLINE · AVAILABLE FOR HIRE</div>
+  <h1>Toby's <span class="gradient">Front End</span><br/>Projects</h1>
+  <p class="sub">I engineer immersive, performant, and beautifully crafted web interfaces — from sci-fi dashboards to luxury brand experiences.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="#projects">View Projects →</a>
+    <a class="btn btn-ghost" href="#hire">⚡ Hire Me</a>
+  </div>
+  <div class="stats">
+    <div class="stat glass"><div class="n gradient">4+</div><div class="l">Live Projects</div></div>
+    <div class="stat glass"><div class="n gradient">100%</div><div class="l">Responsive</div></div>
+    <div class="stat glass"><div class="n gradient">24/7</div><div class="l">Available</div></div>
+  </div>
+</header>
+
+<section id="projects">
+  <div class="section-head">
+    <div class="section-tag">// 02 — Portfolio</div>
+    <h2>Featured <span class="gradient">Builds</span></h2>
+    <p>A selection of real projects shipped with attention to detail, performance, and design.</p>
+  </div>
+  <div class="projects">
+    <article class="project glass">
+      <span class="tag">AI / Dark UI</span>
+      <h3>TIA AI Search Engine</h3>
+      <p>A futuristic search engine with neon accents, animated backgrounds, and a conversational AI experience.</p>
+      <div class="tech"><span>HTML</span><span>CSS</span><span>JS</span><span>Animations</span></div>
+      <a class="live" href="#hire">⬈ Live preview on request</a>
+    </article>
+    <article class="project glass">
+      <span class="tag">EdTech / Tailwind</span>
+      <h3>CodeCraft Learning Platform</h3>
+      <p>A modern learning platform for mastering HTML, CSS, and JavaScript with gradient hero sections and interactive cards.</p>
+      <div class="tech"><span>Tailwind</span><span>Lucide</span><span>Inter</span></div>
+      <a class="live" href="#hire">⬈ Live preview on request</a>
+    </article>
+    <article class="project glass">
+      <span class="tag">E-Commerce</span>
+      <h3>Aqua Market</h3>
+      <p>Fresh fish & seafood marketplace for Nigeria — clean product grids, smooth navigation, conversion-focused layout.</p>
+      <div class="tech"><span>HTML</span><span>CSS</span><span>Responsive</span></div>
+      <a class="live" href="#hire">⬈ Live preview on request</a>
+    </article>
+    <article class="project glass">
+      <span class="tag">Legal / Premium</span>
+      <h3>Sola Otayomi & Co.</h3>
+      <p>Elegant law firm site with serif typography, gold accents, and trust-building animations for a professional brand.</p>
+      <div class="tech"><span>Tailwind</span><span>Cormorant</span></div>
+      <a class="live" href="#hire">⬈ Live preview on request</a>
+    </article>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="about-grid">
+    <div>
+      <div class="section-tag">// 03 — About</div>
+      <h2>Crafting the <span class="gradient">future</span> of the web.</h2>
+      <p>I'm Toby, a front-end developer based in Nigeria. I specialize in building responsive, accessible, and visually striking websites using HTML, CSS, Tailwind, and JavaScript. From e-commerce to AI interfaces, I deliver pixel-perfect work on time.</p>
+      <ul>
+        <li>Modern responsive layouts</li>
+        <li>Sci-fi & premium design systems</li>
+        <li>Performance-first development</li>
+        <li>Fast turnaround</li>
+      </ul>
+    </div>
+    <div class="glass terminal">
+      <div class="dots"><span></span><span></span><span></span></div>
+<pre><span class="k">const</span> toby = {
+  role: <span class="s">'Front-End Dev'</span>,
+  stack: [<span class="s">'HTML'</span>, <span class="s">'CSS'</span>,
+          <span class="s">'JS'</span>, <span class="s">'Tailwind'</span>],
+  status: <span class="g">'available'</span>,
+  email: <span class="s">'oladegatobiloba'</span>
+};</pre>
+    </div>
+  </div>
+</section>
+
+<section id="hire">
+  <div class="contact-card glass">
+    <div class="section-tag">// 04 — Patronize</div>
+    <h2>Let's build <span class="gradient">together</span>.</h2>
+    <p>Send me a message — it goes straight to my inbox — or shoot an email and let's bring your vision to life.</p>
+    <form id="contactForm" action="mailto:oladegatobiloba@gmail.com" method="post" enctype="text/plain">
+      <div class="row">
+        <input required name="name" maxlength="100" placeholder="Your name" />
+        <input required name="email" type="email" maxlength="255" placeholder="you@domain.com" />
+      </div>
+      <textarea required name="message" maxlength="2000" placeholder="Tell me about your project..."></textarea>
+      <button type="submit">⚡ Send Message</button>
+    </form>
+    <a class="email-fallback" href="mailto:oladegatobiloba@gmail.com?subject=Project%20Inquiry">
+      ✉ or email oladegatobiloba@gmail.com directly
+    </a>
+    <div class="status mono">Response within 24 hours · Open worldwide</div>
+  </div>
+</section>
+
+<footer>
+  <div>⬢ © 2026 Toby's Front End Projects</div>
+  <div class="status-pill">[ system.status: <span>operational</span> ]</div>
+</footer>
+
+<script>
+  // Smooth-scroll nav already via CSS; add a tiny submit confirmation
+  document.getElementById('contactForm').addEventListener('submit',()=>{
+    setTimeout(()=>{
+      const s=document.createElement('div');
+      s.className='status sent mono';
+      s.textContent='[ message dispatched · expect a reply within 24h ]';
+      document.getElementById('contactForm').after(s);
+    },200);
+  });
+</script>
+</body>
+</html>
